@@ -201,10 +201,32 @@ struct AligmentAllocator{
 };
 
 
-int main() {
-    
-    
-    return 0;
-    
+std::vector<unsigned char> decode(const std::string& hex){
+    std::vector<unsigned char> bytes;
+    for(size_t i = 0;i < hex.length();i+=2){
+        std::string byteStr = hex.substr(i,2);
+        unsigned char byte = static_cast<unsigned char>(strtol(byteStr.c_str(),nullptr,16));
+        
+        bytes.push_back(byte);
+    }
+    return bytes;
 }
 
+
+std::string encode(const std::string& text){
+    std::string hex;
+    
+    for(unsigned char c : text){
+        char buf[3];
+        
+        snprintf(buf, sizeof(buf), "%02x",c);
+        
+        hex += buf;
+    }
+    return hex;
+}
+
+int main() {
+    
+    return 0;
+}
